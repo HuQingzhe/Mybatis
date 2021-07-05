@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>展示所有学生</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="添加" onclick="gotoAddPage()">
+<table>
+    <tr>
+        <td>
+            <label>
+                <input type="checkbox" id="ids" onclick="checkedAll()"/>
+            </label>
+        </td>
+        <td>姓名</td>
+        <td>年龄</td>
+        <td>性别</td>
+        <td>生日</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="student:${studentList}">
+        <td>
+            <label for="id"></label><input type="checkbox" name="studentId" id="id">
+        </td>
+
+        <td th:text="${student.studentName}"></td>
+        <td th:text="${student.studentAge}"></td>
+        <td th:text="${student.studentSex==1}?'男':'女'"></td>
+        <td th:text="${#dates.format(student.studentBirthday,'yyyy-MM-dd')}"></td>
+        <td>
+            <a th:href="@{/student/findstudent/{id}(id=${student.studentId})}">修改</a>
+            <a th:href="@{/student/deletestudentById/{id}(id=${student.studentId})}">删除</a>
+        </td>
+    </tr>
+</table>
+</body>
+<script>
+    function gotoAddPage() {
+        location.href = "/student/gotoAddPage"
+    }
+
+    function checkedAll() {
+
+    }
+</script>
+</html>
